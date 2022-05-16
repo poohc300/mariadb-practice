@@ -1,15 +1,15 @@
 -- Basic Query
 select version(), current_date;
---  ´ë¼Ò¹® ±¸ºĞÀÌ ¾ø´Ù.
+--  ëŒ€ì†Œë¬¸ êµ¬ë¶„ì´ ì—†ë‹¤.
 SELECT VERSION(), CURRENT_DATE;
 select vErSion(), current_DATE;
--- ¼öÇĞÇÔ¼ö
+-- ìˆ˜í•™í•¨ìˆ˜
 select sin(pi()/4), (4+1)*5;
 
--- Å×ÀÌºí »èÁ¦
+-- í…Œì´ë¸” ì‚­ì œ
 drop table pet;
 
--- Å×ÀÌºí »ı¼º
+-- í…Œì´ë¸” ìƒì„±
 create table pet(
 	name varchar(20),
     owner varchar(20),
@@ -19,64 +19,69 @@ create table pet(
     death date
 );
 
--- schema È®ÀÎ
+-- schema í™•ì¸
 desc pet;
 
--- µ¥ÀÌÅÍ ³Ö±â(»ı¼º, Create)
-insert into pet values('¼ºÅºÀÌ', '¾È´ëÇõ', 'dog', 'm', '2018-12-25', null); 
+-- ë°ì´í„° ë„£ê¸°(ìƒì„±, Create)
+insert into pet values('ì„±íƒ„ì´', 'ì•ˆëŒ€í˜', 'dog', 'm', '2018-12-25', null); 
 
--- µ¥ÀÌÅÍ °Ë»ö(ÀĞ±â, Read)
+-- ë°ì´í„° ê²€ìƒ‰(ì½ê¸°, Read)
 select name, owner, species, gender, birth, death from pet;
 
--- µ¥ÀÌÅÍ »èÁ¦(»èÁ¦, Delete)
-delete from pet where name = '¼ºÅºÀÌ';
+-- ë°ì´í„° ì‚­ì œ(ì‚­ì œ, Delete)
+delete from pet where name = 'ì„±íƒ„ì´';
 
 -- load data local infile 
 load data local infile 'd:\\pet.txt' into table pet;
 
---- µ¥ÀÌÅÍ ¼öÁ¤(¼öÁ¤, Update)
+--- ë°ì´í„° ìˆ˜ì •(ìˆ˜ì •, Update)
 update pet set death=null where name != 'Bowser';
 
--- Á¶È¸(°Ë»ö) ¿¬½À1: where
+-- ì¡°íšŒ(ê²€ìƒ‰) ì—°ìŠµ1: where
 
--- 1990³â ÀÌÈÄ¿¡ ÅÂ¾î³­ ¾ÆÀÌµéÀº?
+-- 1990ë…„ ì´í›„ì— íƒœì–´ë‚œ ì•„ì´ë“¤ì€?
 select name, species, birth
   from pet
  where birth >= '1991-01-01'; 
 
--- Gwen°ú °°ÀÌ »ç´Â ¾ÆÀÌµéÀº?
+-- Gwenê³¼ ê°™ì´ ì‚¬ëŠ” ì•„ì´ë“¤ì€?
 select name, species, owner
   from pet
  where owner = 'Gwen';
  
--- null ´Ù·ç±â 1: »ì¾Æ ÀÖ´Â ¾ÖµéÀº?
+-- null ë‹¤ë£¨ê¸° 1: ì‚´ì•„ ìˆëŠ” ì• ë“¤ì€?
 select name, species, death
   from pet
  where death is null; 
 
--- null ´Ù·ç±â 2: Á×Àº ¾ÖµéÀº?
+-- null ë‹¤ë£¨ê¸° 2: ì£½ì€ ì• ë“¤ì€?
 select name, species, death
   from pet
  where death is not null; 
 
--- like °Ë»ö1(ÆĞÅÏ ¸ÅÄª) : ÀÌ¸§ÀÌ b·Î ½ÃÀÛÇÏ´Â ¾ÆÀÌµéÀº?
+-- like ê²€ìƒ‰1(íŒ¨í„´ ë§¤ì¹­) : ì´ë¦„ì´ bë¡œ ì‹œì‘í•˜ëŠ” ì•„ì´ë“¤ì€?
 select name, species
   from pet
  where name like 'b%'; 
 
--- like °Ë»ö2(ÆĞÅÏ ¸ÅÄª) : ÀÌ¸§ÀÌ b·Î ½ÃÀÛÇÏ´Â ¾ÆÀÌµéÁß¿¡ ÀÌ¸§ÀÌ 6ÀÚÀÎ ¾ÆÀÌ´Â?
+-- like ê²€ìƒ‰2(íŒ¨í„´ ë§¤ì¹­) : ì´ë¦„ì´ bë¡œ ì‹œì‘í•˜ëŠ” ì•„ì´ë“¤ì¤‘ì— ì´ë¦„ì´ 6ìì¸ ì•„ì´ëŠ”?
 select name, species
   from pet
  where name like 'B_____';
 
--- Áı°è(Åë°è) ÇÔ¼ö
+-- ì§‘ê³„(í†µê³„) í•¨ìˆ˜
 select count(*) from pet;
 
 select count(death) from pet;
 select count(*) from pet where death is not null;
 
--- Á¤·Ä: order by
--- ³ªÀÌ°¡ Á¦ÀÏ ¾î¸° ¾ÆÀÌ ¼øÀ¸·Î ÀÌ¸§, Á¾, »ıÀÏ·Î Ãâ·Â ÇÏ¼¼¿ä.
+-- ì •ë ¬: order by
+-- ë‚˜ì´ê°€ ì œì¼ ì–´ë¦° ì•„ì´ ìˆœìœ¼ë¡œ ì´ë¦„, ì¢…, ìƒì¼ë¡œ ì¶œë ¥ í•˜ì„¸ìš”.
   select name, species, birth
     from pet
 order by birth desc, name asc; 
+
+
+
+
+
