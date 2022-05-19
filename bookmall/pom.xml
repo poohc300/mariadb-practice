@@ -25,6 +25,6 @@
 	</dependencies>
 	
 	<build>
-		<finalName>jdbc-practices</finalName>
+		<finalName>bookmall</finalName>
 	</build>	
 </project>
