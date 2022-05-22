@@ -5,7 +5,37 @@ public class CartVo {
 	private Long memberNo;
 	private Long bookNo;
 	private int count;
-	
+	private Long price;
+	private String bookTitle;
+	private String memberName;
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public CartVo() {
+	}
+
 	public Long getNo() {
 		return no;
 	}

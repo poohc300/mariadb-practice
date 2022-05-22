@@ -62,10 +62,10 @@ public class BookDao {
 	
 
 		String sql =
-			"   select a.no, a.name, a.price, b.name" +
+			"   select a.no, a.no, a.title, a.price, b.name" +
 			"     from book a, category b" +
-			"    where a.no = b.no" +
-			" order by no asc";
+			"    where a.category_no = b.no" +
+			" order by a.no";
 		
 		pstmt = connection.prepareStatement(sql);			
 		rs = pstmt.executeQuery();

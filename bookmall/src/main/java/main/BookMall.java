@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import dao.BookDao;
 import dao.CartDao;
@@ -26,7 +27,7 @@ public class BookMall {
 		memberInsert();
 		cartInsert();
 		ordersInsert();
-
+		displayInfo();
 	}
 	
 	public static void categoryInsert() {
@@ -149,6 +150,43 @@ public class BookMall {
 		
 		result = true;
 		return result;		
+	}
+
+	private static void displayInfo() throws SQLException {
+		List<MemberVo> memberList = new MemberDao().findAll();
+		List<CategoryVo> categoryList = new CategoryDao().findAll();
+		List<BookVo> bookList = new BookDao().findAll();
+		List<CartVo> cartList = new CartDao().findAll();
+		List<OrdersVo> orderList = new OrdersDao().findAll();
+		List<OrdersVo> orderBookList = new OrdersDao().findOrderBook();
+
+
+		System.out.println("========================");
+		for(MemberVo vo: memberList) {
+			System.out.println(vo.getName() + ", "+ vo.getEmail());
+		}
+		System.out.println("========================");
+		for(CategoryVo vo: categoryList) {
+			System.out.println(vo.getNo() + " " + vo.getName());
+		}
+		System.out.println("========================");
+		for(BookVo vo: bookList) {
+			System.out.println(vo.getNo() + " " + vo.getName() + " " + vo.getPrice()+  ", " + vo.getCategoryName());
+		}
+		System.out.println("========================");
+		for(CartVo vo: cartList) {
+			System.out.println(vo.getMemberName() + " " + vo.getBookTitle() + " " + vo.getCount());
+		}
+		System.out.println("========================");
+		for(OrdersVo vo: orderList) {
+			System.out.println(vo.getNo() + "-" + vo.getCount() + "\n" + vo.getMemberName()+"("+vo.getMemberEmail()+")"+"\n"+vo.getPrice()+"\n"+vo.getAddress());
+		}
+		System.out.println("========================");
+		for(OrdersVo vo: orderBookList) {
+			System.out.println(vo.getNo() + " " + vo.getTitle() + " " + vo.getCount()+ " " + vo.getPrice());
+		}
+
+
 	}
 	
 }
